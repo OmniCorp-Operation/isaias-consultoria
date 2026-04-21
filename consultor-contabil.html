@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Isaias Consultor | Estratégia & Resultados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:       #F26522;
+      --orange-dark:  #D4551A;
+      --orange-light: #FFF0E8;
+      --orange-glow:  rgba(242,101,34,0.18);
+      --white:        #FFFFFF;
+      --off-white:    #FAF9F7;
+      --ink:          #0F0E0C;
+      --ink-60:       rgba(15,14,12,0.60);
+      --ink-20:       rgba(15,14,12,0.10);
+      --border:       rgba(15,14,12,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── UTILS ── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    @keyframes tagFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-7px); }
+    }
+    .tag {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: var(--orange-light);
+      border: 1px solid rgba(242,101,34,.2);
+      padding: 5px 14px;
+      border-radius: 100px;
+      animation: tagFloat 3s ease-in-out infinite;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: .02em;
+      padding: 16px 32px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 24px rgba(242,101,34,.35);
+    }
+    .btn-primary:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(242,101,34,.45);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--orange);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: 2px solid var(--orange);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .btn-secondary:hover { background: var(--orange-light); }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .logo span { color: var(--orange); }
+    .nav-cta { padding: 10px 22px; font-size: 14px; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--white);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      right: -120px;
+      top: -80px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 60% 40%, rgba(242,101,34,.12) 0%, transparent 70%);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      left: -60px;
+      bottom: -60px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(242,101,34,.07) 0%, transparent 70%);
+    }
+    /* decorative grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--ink-20) 1px, transparent 1px),
+        linear-gradient(90deg, var(--ink-20) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+      opacity: .4;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .hero-eyebrow { margin-bottom: 24px; }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(38px, 5vw, 64px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ink-60);
+      max-width: 520px;
+      margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .hero-note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--ink-60);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-note::before {
+      content: '';
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+    }
+
+    /* stat card panel */
+    .hero-panel {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .stat-value span { color: var(--orange); }
+    .stat-label { font-size: 14px; color: var(--ink-60); font-weight: 300; }
+    .stat-divider { height: 1px; background: var(--border); }
+    .hero-panel-note {
+      font-size: 13px;
+      color: var(--ink-60);
+      line-height: 1.6;
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
+
+    /* ── PAIN STRIP ── */
+    .pain-strip {
+      background: var(--ink);
+      padding: 28px 0;
+      overflow: hidden;
+    }
+    .pain-strip-inner {
+      display: flex;
+      gap: 48px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .pain-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,.7);
+      white-space: nowrap;
+    }
+    .pain-icon { color: var(--orange); font-size: 18px; }
+
+    /* ── SERVICES ── */
+    .services { padding: 112px 0; background: var(--off-white); }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 17px;
+      color: var(--ink-60);
+      font-weight: 300;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* bento grid */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 20px;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: box-shadow .25s, transform .2s, border-color .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      box-shadow: 0 16px 48px rgba(15,14,12,.1);
+      transform: translateY(-4px);
+      border-color: rgba(242,101,34,.25);
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--orange-light) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .card:hover::after { opacity: 1; }
+    .card > * { position: relative; z-index: 1; }
+
+    .card-1 { grid-column: span 7; }
+    .card-2 { grid-column: span 5; }
+    .card-3 { grid-column: span 5; }
+    .card-4 { grid-column: span 7; }
+
+    .card-featured {
+      background: var(--ink);
+      border-color: transparent;
+    }
+    .card-featured .card-title { color: var(--white); }
+    .card-featured .card-desc  { color: rgba(255,255,255,.65); }
+    .card-featured .card-icon  { color: var(--orange); }
+    .card-featured::after { background: linear-gradient(135deg, rgba(242,101,34,.15) 0%, transparent 60%); }
+    .card-featured:hover { border-color: var(--orange); }
+
+    .card-icon {
+      font-size: 32px;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .card-desc {
+      font-size: 15px;
+      color: var(--ink-60);
+      line-height: 1.7;
+      font-weight: 300;
+      flex: 1;
+    }
+    .card-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .card-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--ink-60);
+    }
+    .card-featured .card-bullet { color: rgba(255,255,255,.6); }
+    .card-bullet::before {
+      content: '→';
+      color: var(--orange);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--orange);
+      text-decoration: none;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-top: auto;
+    }
+    .card-link:hover { text-decoration: underline; }
+
+    /* ── DIFERENCIAL ── */
+    .diferencial { padding: 112px 0; background: var(--white); }
+    .dif-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .dif-left h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(26px, 3vw, 40px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin: 16px 0 24px;
+    }
+    .dif-left p {
+      font-size: 16px;
+      color: var(--ink-60);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .versus-table {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .versus-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      background: var(--ink);
+      padding: 14px 20px;
+    }
+    .versus-header span {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+    }
+    .versus-header span:nth-child(2) { color: var(--orange); text-align: center; }
+    .versus-header span:nth-child(3) { color: rgba(255,255,255,.5); text-align: right; }
+    .versus-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      align-items: center;
+    }
+    .versus-row:nth-child(even) { background: var(--off-white); }
+    .versus-topic {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .versus-yes {
+      text-align: center;
+      font-size: 18px;
+    }
+    .versus-no {
+      text-align: right;
+      font-size: 18px;
+    }
+
+    /* ── PROVA SOCIAL ── */
+    .social-proof { padding: 112px 0; background: var(--off-white); }
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .testi-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: box-shadow .2s;
+    }
+    .testi-card:hover { box-shadow: 0 8px 32px rgba(15,14,12,.08); }
+    .stars { color: var(--orange); font-size: 16px; letter-spacing: 2px; }
+    .testi-text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--ink-60);
+      font-weight: 300;
+      font-style: italic;
+      flex: 1;
+    }
+    .testi-author { display: flex; flex-direction: column; gap: 3px; }
+    .testi-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .testi-role { font-size: 13px; color: var(--ink-60); }
+
+    .logo-strip {
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .logo-strip p {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--ink-60);
+      margin-bottom: 32px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+    }
+    .logo-placeholders {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .logo-ph {
+      width: 110px;
+      height: 36px;
+      background: var(--border);
+      border-radius: 6px;
+      opacity: .5;
+    }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      padding: 120px 0;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(242,101,34,.15) 0%, transparent 70%);
+    }
+    .cta-final-inner { position: relative; z-index: 2; }
+    .cta-final h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin: 16px 0 20px;
+    }
+    .cta-final h2 em { font-style: normal; color: var(--orange); }
+    .cta-final p {
+      font-size: 17px;
+      color: rgba(255,255,255,.6);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .wpp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #25D366;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 18px 40px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 32px rgba(37,211,102,.35);
+    }
+    .wpp-btn:hover {
+      background: #1db954;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(37,211,102,.45);
+    }
+    .wpp-icon { font-size: 20px; }
+    .cta-fine {
+      font-size: 13px;
+      color: rgba(255,255,255,.35);
+      margin-top: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: #fff; }
+    .footer-logo span { color: var(--orange); }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,.35); }
+    .footer-contact { font-size: 14px; color: rgba(255,255,255,.6); }
+    .footer-contact a { color: var(--orange); text-decoration: none; }
+
+    /* ── FLOATING WPP ── */
+    .float-wpp {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,.5);
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      animation: floatPulse 2.5s ease-in-out infinite;
+    }
+    .float-wpp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 36px rgba(37,211,102,.65);
+      animation: none;
+    }
+    .float-wpp svg { width: 30px; height: 30px; fill: #fff; }
+    @keyframes floatPulse {
+      0%,100% { box-shadow: 0 4px 24px rgba(37,211,102,.5); }
+      50%      { box-shadow: 0 4px 40px rgba(37,211,102,.75); }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 48px; }
+      .hero-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 28px; }
+      .stat-divider { display: none; }
+      .hero-panel-note { grid-column: span 2; }
+      .card-1,.card-2,.card-3,.card-4 { grid-column: span 12; }
+      .dif-grid { grid-template-columns: 1fr; gap: 48px; }
+      .testimonials { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .pain-strip-inner { gap: 20px; }
+      .hero-panel { grid-template-columns: 1fr; }
+      .hero-panel-note { grid-column: span 1; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .logo-placeholders { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">Isaias <span>Consultor</span></a>
+      <a href="https://wa.me/5511977394503?text=Olá!%20Gostaria%20de%20uma%20consultoria." class="btn-primary nav-cta" target="_blank" rel="noopener">
+        <span>Falar no WhatsApp</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-left fade-up">
+        <div class="hero-eyebrow">
+          <span class="tag">Consultoria Contábil Comercial</span>
+        </div>
+        <h1>Sua empresa <em>cresce mais</em> quando os números trabalham por você.</h1>
+        <p class="hero-sub">
+          Chega de perder tempo com burocracia, obrigações fiscais confusas e decisões no escuro.
+          Você merece um parceiro que transforma contabilidade em estratégia de negócio — não apenas em relatórios.
+        </p>
+        <div class="hero-actions">
+          <a href="https://wa.me/5511977394503?text=Olá!%20Quero%20uma%20análise%20do%20meu%20negócio." class="btn-primary" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 0C5.373 0 0 5.373 0 12c0 2.115.553 4.103 1.519 5.833L.057 23.999l6.305-1.654A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.626 0 12 0zm0 21.818a9.814 9.814 0 01-5.002-1.367l-.359-.213-3.722.976.995-3.637-.234-.374A9.787 9.787 0 012.182 12c0-5.42 4.397-9.818 9.818-9.818 5.42 0 9.818 4.397 9.818 9.818 0 5.42-4.397 9.818-9.819 9.818z"/></svg>
+            Analisar Meu Negócio
+          </a>
+          <a href="#servicos" class="btn-secondary">Ver Serviços</a>
+        </div>
+        <p class="hero-note">Atendimento disponível — (11) 97739-4503</p>
+      </div>
+
+      <div class="hero-panel fade-up" style="transition-delay:.2s">
+        <div class="stat-item">
+          <div class="stat-value">R$ 0<span>,00</span></div>
+          <div class="stat-label">de multa ou autuação fiscal para clientes ativos</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-value">+<span>200</span></div>
+          <div class="stat-label">empresas atendidas em consultoria comercial</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-value">15<span>%</span></div>
+          <div class="stat-label">de redução média de carga tributária por cliente</div>
+        </div>
+        <p class="hero-panel-note">Números reais de uma consultoria que age proativamente, não apenas cumpre obrigações.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PAIN STRIP ══ -->
+  <div class="pain-strip">
+    <div class="pain-strip-inner">
+      <div class="pain-item"><span class="pain-icon">✕</span> Contador que só envia guias?</div>
+      <div class="pain-item"><span class="pain-icon">✕</span> Pagar impostos sem estratégia?</div>
+      <div class="pain-item"><span class="pain-icon">✕</span> Abrir empresa sem orientação?</div>
+      <div class="pain-item"><span class="pain-icon">✕</span> IR sem planejamento prévio?</div>
+      <div class="pain-item"><span class="pain-icon">✕</span> Decisões sem dados contábeis?</div>
+    </div>
+  </div>
+
+  <!-- ══ SERVIÇOS ══ -->
+  <section class="services" id="servicos">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="tag">O que oferecemos</span>
+        <h2>Serviços que geram<br/>resultado mensurável</h2>
+        <p>Cada serviço foi desenhado para ir além do cumprimento legal — entregando vantagem competitiva real para o seu negócio.</p>
+      </div>
+
+      <div class="bento fade-up" style="transition-delay:.15s">
+
+        <!-- Card 1: IR -->
+        <div class="card card-featured card-1">
+          <div class="card-icon">🧾</div>
+          <div class="card-title">Declaração de Imposto de Renda</div>
+          <div class="card-desc">Pessoa Física e Jurídica. Sem estresse, sem surpresas, sem risco de malha fina.</div>
+          <div class="card-bullets">
+            <div class="card-bullet">IRPF — declaração completa com aproveitamento máximo de deduções legais</div>
+            <div class="card-bullet">IRPJ — apuração precisa integrada ao planejamento tributário anual</div>
+            <div class="card-bullet">Revisão de anos anteriores para identificar restituições não aproveitadas</div>
+            <div class="card-bullet">Acompanhamento pós-entrega com suporte a intimações e impugnações</div>
+          </div>
+          <a href="https://wa.me/5511977394503?text=Quero%20declarar%20meu%20IR%20com%20vocês." class="card-link" target="_blank" rel="noopener">Solicitar agora →</a>
+        </div>
+
+        <!-- Card 2: Tributário -->
+        <div class="card card-2">
+          <div class="card-icon">💡</div>
+          <div class="card-title">Planejamento Tributário</div>
+          <div class="card-desc">Pague apenas o que você deve pagar — nada mais, nada menos. Utilizamos os mecanismos legais para reduzir a sua carga tributária de forma estruturada.</div>
+          <div class="card-bullets">
+            <div class="card-bullet">Escolha e revisão do regime tributário ideal (Simples, Lucro Presumido, Real)</div>
+            <div class="card-bullet">Mapeamento de incentivos fiscais setoriais</div>
+          </div>
+          <a href="https://wa.me/5511977394503?text=Quero%20reduzir%20minha%20carga%20tributária." class="card-link" target="_blank" rel="noopener">Quero pagar menos →</a>
+        </div>
+
+        <!-- Card 3: Abertura -->
+        <div class="card card-3">
+          <div class="card-icon">🏢</div>
+          <div class="card-title">Abertura e Gestão de Empresas</div>
+          <div class="card-desc">Da ideia ao CNPJ ativo em dias, não em semanas. Com o enquadramento certo desde o início.</div>
+          <div class="card-bullets">
+            <div class="card-bullet">Abertura, alteração e encerramento de CNPJ</div>
+            <div class="card-bullet">Definição estratégica do tipo societário e regime fiscal</div>
+          </div>
+          <a href="https://wa.me/5511977394503?text=Preciso%20abrir%20uma%20empresa." class="card-link" target="_blank" rel="noopener">Abrir minha empresa →</a>
+        </div>
+
+        <!-- Card 4: Consultoria -->
+        <div class="card card-4">
+          <div class="card-icon">📈</div>
+          <div class="card-title">Consultoria Contábil Comercial</div>
+          <div class="card-desc">Este é o nosso diferencial. Não somos apenas contadores — somos parceiros de crescimento. Traduzimos os seus números em decisões estratégicas.</div>
+          <div class="card-bullets">
+            <div class="card-bullet">Análise de margem, fluxo de caixa e lucratividade por produto/serviço</div>
+            <div class="card-bullet">Dashboards financeiros para gestão executiva e tomada de decisão ágil</div>
+            <div class="card-bullet">Suporte em negociações, captação de crédito e estruturação societária</div>
+            <div class="card-bullet">Reuniões periódicas de acompanhamento — você nunca fica sem resposta</div>
+          </div>
+          <a href="https://wa.me/5511977394503?text=Quero%20consultoria%20comercial%20contábil." class="card-link" target="_blank" rel="noopener">Falar com especialista →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ DIFERENCIAL ══ -->
+  <section class="diferencial" id="diferencial">
+    <div class="container">
+      <div class="dif-grid">
+        <div class="dif-left fade-up">
+          <span class="tag">Por que somos diferentes</span>
+          <h2>Contabilidade tradicional cumpre obrigações. Nós geramos resultados.</h2>
+          <p>A maioria dos escritórios contábeis atua de forma reativa: esperam os prazos chegarem para emitir guias e enviar declarações. Um consultor contábil comercial antecipa movimentos, propõe melhorias e atua lado a lado com o gestor — como um CFO externo acessível para empresas de qualquer porte.</p>
+          <br/>
+          <p>Enquanto o seu contador atual responde "não sei" para perguntas sobre crescimento, precificação e estrutura societária — nós respondemos com dados, estratégia e plano de ação.</p>
+        </div>
+        <div class="dif-right fade-up" style="transition-delay:.2s">
+          <div class="versus-table">
+            <div class="versus-header">
+              <span>Critério</span>
+              <span>Isaias Consultor</span>
+              <span>Contab. Tradicional</span>
+            </div>
+            <div class="versus-row">
+              <div class="versus-topic">Estratégia tributária proativa</div>
+              <div class="versus-yes">✅</div>
+              <div class="versus-no">❌</div>
+            </div>
+            <div class="versus-row">
+              <div class="versus-topic">Reuniões de análise financeira</div>
+              <div class="versus-yes">✅</div>
+              <div class="versus-no">❌</div>
+            </div>
+            <div class="versus-row">
+              <div class="versus-topic">Apoio em decisões comerciais</div>
+              <div class="versus-yes">✅</div>
+              <div class="versus-no">❌</div>
+            </div>
+            <div class="versus-row">
+              <div class="versus-topic">Dashboard e indicadores</div>
+              <div class="versus-yes">✅</div>
+              <div class="versus-no">❌</div>
+            </div>
+            <div class="versus-row">
+              <div class="versus-topic">Cumpre obrigações legais</div>
+              <div class="versus-yes">✅</div>
+              <div class="versus-no">✅</div>
+            </div>
+            <div class="versus-row">
+              <div class="versus-topic">Identifica economia tributária</div>
+              <div class="versus-yes">✅</div>
+              <div class="versus-no">❌</div>
+            </div>
+            <div class="versus-row">
+              <div class="versus-topic">Suporte pós-declaração</div>
+              <div class="versus-yes">✅</div>
+              <div class="versus-no">❌</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROVA SOCIAL ══ -->
+  <section class="social-proof" id="depoimentos">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="tag">Quem já transformou</span>
+        <h2>Clientes que pararam de adivinhar<br/>e começaram a crescer</h2>
+        <p>Depoimentos reais de empresários que encontraram no nosso trabalho um parceiro estratégico.</p>
+      </div>
+
+      <div class="testimonials fade-up" style="transition-delay:.1s">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"Reduzi 18% da minha carga tributária no primeiro ano de consultoria. Resultado que meu contador anterior nunca havia me apresentado em 5 anos."</p>
+          <div class="testi-author">
+            <span class="testi-name">Roberto Almeida</span>
+            <span class="testi-role">Sócio-fundador, distribuidora de materiais de construção</span>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"Abri minha empresa com o suporte deles do zero. Escolha do regime, CNPJ ativo em 5 dias, e já saí com planejamento para o primeiro trimestre."</p>
+          <div class="testi-author">
+            <span class="testi-name">Fernanda Cristina</span>
+            <span class="testi-role">Fundadora, consultoria de marketing digital</span>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"Finalmente entendo os meus próprios números. As reuniões mensais de análise transformaram a forma como tomo decisões no meu negócio."</p>
+          <div class="testi-author">
+            <span class="testi-name">Marcelo Teixeira</span>
+            <span class="testi-role">CEO, rede de franquias de alimentação saudável</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-strip fade-up" style="transition-delay:.2s">
+        <p>Empresas que confiam no nosso trabalho</p>
+        <div class="logo-placeholders">
+          <div class="logo-ph"></div>
+          <div class="logo-ph"></div>
+          <div class="logo-ph"></div>
+          <div class="logo-ph"></div>
+          <div class="logo-ph"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA FINAL ══ -->
+  <section class="cta-final" id="contato">
+    <div class="container cta-final-inner">
+      <span class="tag" style="background:rgba(242,101,34,.15);border-color:rgba(242,101,34,.3);color:var(--orange);">Agende sua Conversa</span>
+      <h2>Pronto para fazer seus<br/>números <em>trabalharem</em> por você?</h2>
+      <p>Agende uma conversa sem compromisso. Em 30 minutos, identificamos onde sua empresa está perdendo dinheiro — e o que pode ser feito hoje.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/5511977394503?text=Olá!%20Quero%20minha%20análise%20de%2030%20minutos." class="wpp-btn" target="_blank" rel="noopener">
+          <span class="wpp-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 0C5.373 0 0 5.373 0 12c0 2.115.553 4.103 1.519 5.833L.057 23.999l6.305-1.654A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.626 0 12 0zm0 21.818a9.814 9.814 0 01-5.002-1.367l-.359-.213-3.722.976.995-3.637-.234-.374A9.787 9.787 0 012.182 12c0-5.42 4.397-9.818 9.818-9.818 5.42 0 9.818 4.397 9.818 9.818 0 5.42-4.397 9.818-9.819 9.818z"/></svg>
+          </span>
+          Falar no WhatsApp — (11) 97739-4503
+        </a>
+        <span class="cta-fine">Sem compromisso. Resposta em até 2 horas.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Isaias <span>Consultor</span></span>
+      <span class="footer-contact">
+        WhatsApp: <a href="https://wa.me/5511977394503" target="_blank" rel="noopener">(11) 97739-4503</a>
+      </span>
+      <span class="footer-copy">© 2025 Isaias Consultor. Todos os direitos reservados.</span>
+    </div>
+  </footer>
+
+  <!-- ══ BOTÃO FLUTUANTE WPP ══ -->
+  <a href="https://wa.me/5511977394503?text=Olá!%20Vi%20o%20site%20e%20quero%20saber%20mais." class="float-wpp" target="_blank" rel="noopener" title="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 0C5.373 0 0 5.373 0 12c0 2.115.553 4.103 1.519 5.833L.057 23.999l6.305-1.654A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.626 0 12 0zm0 21.818a9.814 9.814 0 01-5.002-1.367l-.359-.213-3.722.976.995-3.637-.234-.374A9.787 9.787 0 012.182 12c0-5.42 4.397-9.818 9.818-9.818 5.42 0 9.818 4.397 9.818 9.818 0 5.42-4.397 9.818-9.819 9.818z"/></svg>
+  </a>
+
+  <script>
+    // Scroll animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
